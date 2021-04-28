@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="LoanCalculatorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AGE_RATE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AGE" Type="int" />
+          <Property Name="RATE" Type="decimal" Precision="5" Scale="2" />
+        </EntityType>
+        <EntityType Name="AVAILABILITY_MONTHS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SPAN" Type="int" />
+          <Property Name="SPAN_DESCRIPTION" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="QUERY_LOG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QUERY_DATE" Type="datetime" />
+          <Property Name="AGE" Type="int" />
+          <Property Name="AMOUNT" Type="decimal" Precision="20" Scale="2" />
+          <Property Name="MONTHS" Type="int" />
+          <Property Name="MONTHLY_PAYMENT" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="QUERY_IP" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Function Name="INSERT_QUERY_LOG" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AGE" Type="int" Mode="In" />
+          <Parameter Name="AMOUNT" Type="decimal" Mode="In" />
+          <Parameter Name="MONTHS" Type="int" Mode="In" />
+          <Parameter Name="USER_LOG" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="LoanCalculatorModelStoreContainer">
+          <EntitySet Name="AGE_RATE" EntityType="Self.AGE_RATE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AVAILABILITY_MONTHS" EntityType="Self.AVAILABILITY_MONTHS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QUERY_LOG" EntityType="Self.QUERY_LOG" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LoanCalculatorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AGE_RATE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AGE" Type="Int32" />
+          <Property Name="RATE" Type="Decimal" Precision="5" Scale="2" />
+        </EntityType>
+        <EntityType Name="AVAILABILITY_MONTHS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SPAN" Type="Int32" />
+          <Property Name="SPAN_DESCRIPTION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="QUERY_LOG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QUERY_DATE" Type="DateTime" Precision="3" />
+          <Property Name="AGE" Type="Int32" />
+          <Property Name="AMOUNT" Type="Decimal" Precision="20" Scale="2" />
+          <Property Name="MONTHS" Type="Int32" />
+          <Property Name="MONTHLY_PAYMENT" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="QUERY_IP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="LoanCalculatorEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AGE_RATE" EntityType="Self.AGE_RATE" />
+          <EntitySet Name="AVAILABILITY_MONTHS" EntityType="Self.AVAILABILITY_MONTHS" />
+          <EntitySet Name="QUERY_LOG" EntityType="Self.QUERY_LOG" />
+          <FunctionImport Name="INSERT_QUERY_LOG">
+            <Parameter Name="AGE" Mode="In" Type="Int32" />
+            <Parameter Name="AMOUNT" Mode="In" Type="Decimal" />
+            <Parameter Name="MONTHS" Mode="In" Type="Int32" />
+            <Parameter Name="USER_LOG" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertLog" EntitySet="QUERY_LOG" ReturnType="Collection(LoanCalculatorModel.QUERY_LOG)">
+            <Parameter Name="AGE" Mode="In" Type="Int32" />
+            <Parameter Name="AMOUNT" Mode="In" Type="Decimal" />
+            <Parameter Name="MONTHS" Mode="In" Type="Int32" />
+            <Parameter Name="USER_LOG" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LoanCalculatorModelStoreContainer" CdmEntityContainer="LoanCalculatorEntities">
+          <EntitySetMapping Name="AGE_RATE">
+            <EntityTypeMapping TypeName="LoanCalculatorModel.AGE_RATE">
+              <MappingFragment StoreEntitySet="AGE_RATE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AGE" ColumnName="AGE" />
+                <ScalarProperty Name="RATE" ColumnName="RATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AVAILABILITY_MONTHS">
+            <EntityTypeMapping TypeName="LoanCalculatorModel.AVAILABILITY_MONTHS">
+              <MappingFragment StoreEntitySet="AVAILABILITY_MONTHS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SPAN" ColumnName="SPAN" />
+                <ScalarProperty Name="SPAN_DESCRIPTION" ColumnName="SPAN_DESCRIPTION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QUERY_LOG">
+            <EntityTypeMapping TypeName="LoanCalculatorModel.QUERY_LOG">
+              <MappingFragment StoreEntitySet="QUERY_LOG">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="QUERY_DATE" ColumnName="QUERY_DATE" />
+                <ScalarProperty Name="AGE" ColumnName="AGE" />
+                <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
+                <ScalarProperty Name="MONTHS" ColumnName="MONTHS" />
+                <ScalarProperty Name="MONTHLY_PAYMENT" ColumnName="MONTHLY_PAYMENT" />
+                <ScalarProperty Name="QUERY_IP" ColumnName="QUERY_IP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="INSERT_QUERY_LOG" FunctionName="LoanCalculatorModel.Store.INSERT_QUERY_LOG" />
+          <FunctionImportMapping FunctionImportName="InsertLog" FunctionName="LoanCalculatorModel.Store.INSERT_QUERY_LOG" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

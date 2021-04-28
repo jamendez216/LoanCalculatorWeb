@@ -1,0 +1,39 @@
+﻿@model LoanCalculatorWeb.Models.ViewModelLoanDetail
+
+@{
+    ViewBag.Title = "Loan Detail";
+}
+
+<h2>Loan Detail</h2>
+
+<div>
+    <hr />
+    <hr />
+    <h3>
+        @Html.DisplayNameFor(model => model.MonthPayment)
+    </h3>
+    <h4>
+        @Html.DisplayFor(model => model.MonthPayment)
+    </h4>
+    <h3>
+        @Html.DisplayNameFor(model => model.Amount)
+    </h3>
+    <h4>
+        @Html.DisplayFor(model => model.Amount)
+    </h4>
+    <h3>
+        @Html.DisplayNameFor(model => model.Months)
+    </h3>
+    <h4>
+        @Html.DisplayFor(model => model.Months)
+    </h4>
+    <h3>
+        @Html.DisplayNameFor(model => model.Name)
+    </h3>
+    <h4>
+        @Html.DisplayFor(model => model.Name)
+    </h4>
+</div>
+<p>
+    @Html.ActionLink("Back to Calculator", "LoanCalculator")
+</p>

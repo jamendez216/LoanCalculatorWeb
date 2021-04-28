@@ -1,0 +1,59 @@
+﻿@model IEnumerable<LoanCalculatorWeb.Models.LoanListViewModel>
+
+@{
+    ViewBag.Title = "Loans List";
+}
+
+<h2>Loans List</h2>
+
+<div>
+    @Html.ActionLink("Return to Loan Calculator", "LoanCalculator")
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.GeneratedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Months)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MonthlyPayment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.GeneratedAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Age)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Months)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MonthlyPayment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClientName)
+        </td>
+    </tr>
+}
+
+</table>
